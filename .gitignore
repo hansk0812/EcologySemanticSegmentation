@@ -147,3 +147,7 @@ data/
 deeplabv3plus/
 whole_body/
 test_results/
+
+# frames directory
+
+frames/
