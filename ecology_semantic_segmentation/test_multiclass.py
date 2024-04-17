@@ -13,7 +13,6 @@ from torch.utils.data import DataLoader
 
 from .dataset.fish import fish_test_dataset, ORGANS
 from .dataset.visualize_composite_labels import display_composite_annotations
-from .dataset.fish.video_dataset import VideoDataset
 
 from .train_multiclass import unet_model 
 from .train_multiclass import load_recent_model
@@ -45,11 +44,13 @@ def test(net, dataloader, models_dir="models/vgg", results_dir="test_results/", 
     net = net.eval()
 
     with torch.no_grad():
-        for j, (test_images, test_labels) in enumerate(dataloader, 0):
+        for j, test_images in enumerate(dataloader, 0):
             
             # Hard-to-read log file
             #print ("Predictions on batch: %d/%d" % (j+1, len(dataloader)), end='\r')
             
+            test_images, test_labels, image_ids = test_images
+
             if torch.cuda.is_available():
                 test_images = test_images.cuda()
                 test_labels = test_labels.cuda()
@@ -60,20 +61,20 @@ def test(net, dataloader, models_dir="models/vgg", results_dir="test_results/", 
             # Adding union and intersection losses created the need for this test! 
             # Ignored for other models before ablation and deleted because of lack of space
             # Will not be included for performance benchmarks but a similarity in the pattern can be expected
-        #    BEAM_SEARCH_THRESHOLDS = np.arange(0.8, 0.99, step=0.01)
-        #    if args.single_model:
-        #        avg_losses = []
-        #        for threshold in BEAM_SEARCH_THRESHOLDS:
-        #            test_outputs[test_outputs > BEAM_SEARCH_THRESHOLD] = 1
-        #            test_outputs[test_outputs!=1] = 0
-
-        #            CLASS_INDEX = 1
-        #            loss = [dice_loss(test_outputs[:,idx:idx+1,:,:], test_labels[:,idx:idx+1,:,:], background_weight=0) \
-        #                            for idx in range(test_labels.shape[CLASS_INDEX])]
-        #            avg_losses.append(loss)
-        #        best_idx = np.argmin(np.mean(avg_losses, axis=0))
-        #        print ("Best performance using threshold: %.3f" % BEAM_SEARCH_THRESHOLDS[best_idx])
-        #        print ("Accuracy:", avg_losses[best_idx])
+#            BEAM_SEARCH_THRESHOLDS = np.arange(0.8, 0.99, step=0.01)
+#            if args.single_model:
+#                avg_losses = []
+#                for threshold in BEAM_SEARCH_THRESHOLDS:
+#                    test_outputs[test_outputs > BEAM_SEARCH_THRESHOLD] = 1
+#                    test_outputs[test_outputs!=1] = 0
+#
+#                    CLASS_INDEX = 1
+#                    loss = [dice_loss(test_outputs[:,idx:idx+1,:,:], test_labels[:,idx:idx+1,:,:], background_weight=0) \
+#                                    for idx in range(test_labels.shape[CLASS_INDEX])]
+#                    avg_losses.append(loss)
+#                best_idx = np.argmin(np.mean(avg_losses, axis=0))
+#                print ("Best performance using threshold: %.3f" % BEAM_SEARCH_THRESHOLDS[best_idx])
+#                print ("Accuracy:", avg_losses[best_idx])
                 
             CLASS_INDEX = 1
             loss = [dice_loss(test_outputs[:,idx:idx+1,:,:], test_labels[:,idx:idx+1,:,:], background_weight=0) \
@@ -112,19 +113,12 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--single_model", type=int, help="Epoch number for model selection vs testing entire test set", default=None)
     ap.add_argument("--models_dir", default="models/vgg", help="Flag for model selection vs testing entire test set")
-    ap.add_argument("--video", default=None, type=str, help="Pass the path to the video file that you want to segment.")
     args = ap.parse_args()
     
     batch_size = 1 if not torch.cuda.is_available() or args.single_model else 45
 
     [x.dataset.set_augment_flag(False) for x in fish_test_dataset.datasets]
-    
-    if args.video:
-        test_dataset = VideoDataset(args.video)
-    else:
-        test_dataset = fish_test_dataset
-    
-    test_dataloader = DataLoader(test_dataset, shuffle=False, batch_size=batch_size, num_workers=6)
+    test_dataloader = DataLoader(fish_test_dataset, shuffle=False, batch_size=batch_size, num_workers=6)
  
     if torch.cuda.is_available():
         net = unet_model.cuda()

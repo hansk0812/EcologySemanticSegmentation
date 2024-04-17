@@ -62,4 +62,16 @@ Reasons:
 
 https://www.geeksforgeeks.org/antialiasing/
 
-#TODO: DEEPSUPERVISION CODE!
+### TODO: DEEPSUPERVISION CODE!
+
+
+### TODO: Figure out how to run the script for test_video.py
+Sample script:
+```
+python ./ecology_semantic_segmentation/test_video.py  --model_path ./deeplabv3plus/channels256/img256/deeplabv3plus_best_model_epoch500.pt --video_path ./data/videos/20230527_182224.mp4 --result_dir ./video_results
+```
+
+Other script:
+```
+python -m ecology_semantic_segmentation.test_video  --model_path ./deeplabv3plus/channels256/img256/deeplabv3plus_best_model_epoch500.pt --video_path ./data/videos/20230527_182224.mp4 --result_dir ./video_results
+```

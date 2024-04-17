@@ -6,6 +6,11 @@
 			"type": "segmentation/composite"
 		},
 		{
+			"folder": "videos/frames",
+			"name": "videos",
+			"type": "segmentation/composite"
+		},
+		{
 			"folder": "deepfish/zip/",
 			"name": "deepfish",
 			"type": "polygons"
