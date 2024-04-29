@@ -65,13 +65,16 @@ https://www.geeksforgeeks.org/antialiasing/
 ### TODO: DEEPSUPERVISION CODE!
 
 
-### TODO: Figure out how to run the script for test_video.py
-Sample script:
-```
-python ./ecology_semantic_segmentation/test_video.py  --model_path ./deeplabv3plus/channels256/img256/deeplabv3plus_best_model_epoch500.pt --video_path ./data/videos/20230527_182224.mp4 --result_dir ./video_results
-```
+### TODO: Implement feature for model to accept video as input
+We do not need to train a new model which takes video as input. Rather, we will take video, parse it into individual frames and pass that to the model. After the model is done processing the images or segmenting them, we will take those images and reassemble them into a video.
 
-Other script:
-```
-python -m ecology_semantic_segmentation.test_video  --model_path ./deeplabv3plus/channels256/img256/deeplabv3plus_best_model_epoch500.pt --video_path ./data/videos/20230527_182224.mp4 --result_dir ./video_results
-```
+The general pipeline is as follows:
+1. Parse video into frames.
+2. Pass frames to the model to be segmented.
+3. Aggregate frames back into a video.
+
+Now there are two ways we could achieve this:
+1. Create the feature that works with the current project pipeline (i.e. reading from the json file for project configuration and using the preexisting training script to kind of "inject" the frames into the model). What I mean by this is that there is code already that passes images to the model and saves the output. We would integrate the new feature to work with this preexisting code.
+2. The second method is to create a standalone file/project that just loads the pretrained model file and asks it to segment the images.
+
+I (one of the Spring 2024 interns) am not well versed enough to say which is the correct option, though I feel the first option sounds easier. It's just reading a lot of old code and understanding how it works. 
