@@ -78,3 +78,7 @@ Now there are two ways we could achieve this:
 2. The second method is to create a standalone file/project that just loads the pretrained model file and asks it to segment the images.
 
 I (one of the Spring 2024 interns) am not well versed enough to say which is the correct option, though I feel the first option sounds easier. It's just reading a lot of old code and understanding how it works. 
+
+Some files you may consider modifying when trying to implement this feature:
+- `./ecology_semantic_segmentation/test_video.py`
+- `ecology_semantic_segmentation/dataset/fish/video_dataset.py`
