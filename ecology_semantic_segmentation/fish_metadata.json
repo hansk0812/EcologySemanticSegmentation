@@ -1,77 +1,83 @@
 {
-	"datasets": [ 
-	{"folder": "Cichlid Picture Collection REVISED (UPDATED)/Annotated Photos/",
-	 "name": "alvaradolab",
-	 "type": "segmentation/composite"
-	},
-	
-	{"folder": "deepfish/zip/",
-	 "name": "deepfish",
-	 "type": "polygons"
-	},
-	
-	{"folder": "Deep Fish/",
-	 "name": "deepfish_segclsloc",
-	 "type": "segmentation"
-	},
-
-	{"folder": "Fish_automated_identification_and_counting/",
-	 "name": "fish_automated_identification_counting",
-	 "type": "polygons"
-	},
-	
-	{"folder": "Fish-Pak/",
-	 "name": "fish_pak",
-	 "type": "polygons/composite"
-	},
-	
-	{"folder": "data/foid",
-	 "name": "foid",
-	 "type": "bbox_localization"
-	},
-	
-	{"folder": "pawsey/",
-	 "name": "pawsey",
-	 "type": "polygons"
-	},
-
-	{"folder": "f4k_detection_and_tracking/",
-	 "name": "f4k_detection_and_tracking",
-	 "type": "polygons"
-	},
-
-	{"folder": "SUIM/SUIM/train_val",
-	 "name": "suim",
-	 "type": "segmentation"
-	},
-
-	{"folder": "Machine learning training set/",
-	 "name": "ml_training_set",
-	 "type": "segmentation/composite",
-     "bbox_dependent_images_path": "bbox_to_segmentation_gt/"
-	},
-
-	{"folder": "roboflow/",
-	 "name": "roboflow_mscoco",
-	 "type": "polygons"
-	}
-
+	"datasets": [
+		{
+			"folder": "Cichlid Picture Collection REVISED (UPDATED)/Annotated Photos/",
+			"name": "alvaradolab",
+			"type": "segmentation/composite"
+		},
+		{
+			"folder": "videos/frames",
+			"name": "videos",
+			"type": "segmentation/composite"
+		},
+		{
+			"folder": "deepfish/zip/",
+			"name": "deepfish",
+			"type": "polygons"
+		},
+		{
+			"folder": "Deep Fish/",
+			"name": "deepfish_segclsloc",
+			"type": "segmentation"
+		},
+		{
+			"folder": "Fish_automated_identification_and_counting/",
+			"name": "fish_automated_identification_counting",
+			"type": "polygons"
+		},
+		{
+			"folder": "Fish-Pak/",
+			"name": "fish_pak",
+			"type": "polygons/composite"
+		},
+		{
+			"folder": "data/foid",
+			"name": "foid",
+			"type": "bbox_localization"
+		},
+		{
+			"folder": "pawsey/",
+			"name": "pawsey",
+			"type": "polygons"
+		},
+		{
+			"folder": "f4k_detection_and_tracking/",
+			"name": "f4k_detection_and_tracking",
+			"type": "polygons"
+		},
+		{
+			"folder": "SUIM/SUIM/train_val",
+			"name": "suim",
+			"type": "segmentation"
+		},
+		{
+			"folder": "Machine learning training set/",
+			"name": "ml_training_set",
+			"type": "segmentation/composite",
+			"bbox_dependent_images_path": "bbox_to_segmentation_gt/"
+		},
+		{
+			"folder": "roboflow/",
+			"name": "roboflow_mscoco",
+			"type": "polygons"
+		}
 	],
-	
-    "folder_path": "/home/hans/data/",
-
-    "models": [
-    {
-      "name": "unet",
-      "task": "segmentation",
-      "folder": "AlvaradoLabSegmentation",
-      "size": [
-        {"backbone": "vgg",
-         "mb": 202},
-        {"backbone": "efficientnet_v2_s",
-         "mb": "in_progress"}
-      ]
-    }
-    ]
+	"folder_path": "./data",
+	"models": [
+		{
+			"name": "unet",
+			"task": "segmentation",
+			"folder": "AlvaradoLabSegmentation",
+			"size": [
+				{
+					"backbone": "vgg",
+					"mb": 202
+				},
+				{
+					"backbone": "efficientnet_v2_s",
+					"mb": "in_progress"
+				}
+			]
+		}
+	]
 }
-

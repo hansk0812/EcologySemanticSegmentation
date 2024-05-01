@@ -139,3 +139,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data files
+data/
+
+#model directories
+deeplabv3plus/
+whole_body/
+test_results/
+
+# frames directory
+
+frames/
