@@ -77,7 +77,7 @@ Now there are two ways we could achieve this:
 1. Create the feature that works with the current project pipeline (i.e. reading from the json file for project configuration and using the preexisting training script to kind of "inject" the frames into the model). What I mean by this is that there is code already that passes images to the model and saves the output. We would integrate the new feature to work with this preexisting code.
 2. The second method is to create a standalone file/project that just loads the pretrained model file and asks it to segment the images.
 
-I (one of the Spring 2024 interns) am not well versed enough to say which is the correct option, though I feel the first option sounds easier. It's just reading a lot of old code and understanding how it works. 
+Work done by https://github.com/dddictionary for his Spring 2024 internship.
 
 Some files you may consider modifying when trying to implement this feature:
 - `./ecology_semantic_segmentation/test_video.py`
